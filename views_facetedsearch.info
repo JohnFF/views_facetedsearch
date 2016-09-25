@@ -1,0 +1,9 @@
+core = "7.x"
+name = "Faceted Search"
+description = "Adds a Faceted Search layer to a given view."
+package = "Faceted Search"
+dependencies[] = views_ui
+files[] = 'js/underscore-1.1.7.js'
+files[] = 'js/facetedsearch.js'
+files[] = 'views_facetedsearch_plugin_style_facetedsearch.inc'
+files[] = 'theme/views_facetedsearch.theme.inc'
