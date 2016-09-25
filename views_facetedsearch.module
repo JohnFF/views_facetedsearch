@@ -7,35 +7,8 @@ function template_preprocess_views_facetedsearch(&$vars) {
 }
 
 function views_facetedsearch_views_post_render($view,  &$output, $cache) {
-  drupal_add_js("
-      jQuery(function(){
-          var item_template = 
-           '<div class=\"item\">' +
-             '<p class=\"tags\">' + 
-             '<% if (obj.id) {  %><%= obj.id %><% } %>' +
-             '<% if (obj.civicrm_contact_source) {  %>, <%= obj.civicrm_contact_source %><% } %>' +
-             '<% if (obj.civicrm_contact_display_name) {  %>, <%= obj.civicrm_contact_display_name %><% } %>' +
-             '</p>'
-           '</div>';
-        settings = { 
-          items            : views_facetedsearch_resultitems,
-          facets           : { 
-                              'id'    : 'Which Continent',
-                              'civicrm_contact_source'    : 'Which Continent2',
-                              'civicrm_contact_display_name'     : 'Programming Language'
-          },  
-          resultSelector   : '#results',
-          facetSelector    : '#facets',
-          resultTemplate   : item_template,
-          enablePagination  : false,
-          paginationCount  : 50,
-          orderByOptions   : {'id': 'Contact id', 'civicrm_contact_display_name': 'Display name', 'civicrm_contact_source': 'Source', 'RANDOM': 'Random'},
-          //facetSortOption  : {'civicrm_contact_source': [\"0\", \"1\"]}
-        }   
-
-        // use them!
-        jQuery.facetelize(settings);
-      });", 'inline');
+  //drupal_add_js("
+  //    ", 'inline');
 }
 
 function facetedsearch_views_pre_render(&$view) {

@@ -12,6 +12,37 @@ class views_facetedsearch_plugin_style_facetedsearch extends views_plugin_style 
     return $options;
   }
   
+  // Build the settings form for the view.
+  function options_form(&$form, &$form_state) {
+
+    parent::options_form($form, $form_state);
+    
+    $selectedFields = $form_state['view']->display_handler->display->handler->view->
+        display['default']->handler->view->display_handler->default_display->display->
+        display_options['fields'];
+    
+    foreach($selectedFields as $selectedFieldKey => $eachSelectedField){
+      $optionKey = 'views_facetedsearch_facets_' . $eachSelectedField['table'] . '_' . $eachSelectedField['field'] ;
+      if (array_key_exists('label', $eachSelectedField)){
+        $optionTitle = t($eachSelectedField['label']);
+      }
+      else {
+        $optionTitle = t($eachSelectedField['id']);
+      }
+      
+      $form[$optionKey] = array(
+        '#type' => 'checkbox',
+        '#title' => t($optionTitle),
+        //'#options' => $facetOptions,
+        '#default_value' => $this->options[$optionKey],
+        '#description' => t('Check box to display allow searching by facet.'),
+      );
+    }
+
+    // Create the drop down box so users can choose an available skin.
+
+  }
+    
   function render(){
     drupal_add_js(drupal_get_path('module', 'views_facetedsearch') . '/js/underscore-1.1.7.js');
     drupal_add_js(drupal_get_path('module', 'views_facetedsearch') . '/js/facetedsearch.js');
