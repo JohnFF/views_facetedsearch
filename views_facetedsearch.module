@@ -2,20 +2,6 @@
 
 include_once('theme/views_facetedsearch.theme.inc');
 
-function template_preprocess_views_facetedsearch(&$vars) {
-  _views_facetedsearch_preprocess_views_facetedsearch($vars);
-}
-
-function views_facetedsearch_views_post_render($view,  &$output, $cache) {
-  //drupal_add_js("
-  //    ", 'inline');
-}
-
-function facetedsearch_views_pre_render(&$view) {
-//  die(print_r($view, TRUE));
-}
-
-
 /**
  * Implements hook_views_plugins().
  */
