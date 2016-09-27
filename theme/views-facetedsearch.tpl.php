@@ -1,19 +1,19 @@
 <div id='view_facetedsearch_facets'></div><div id='view_facetedsearch_results'></div>
 <script type="text/javascript">
   jQuery(function(){
-    
-    var item_template = 
+
+    var item_template =
      '<div class=\"item\">' +
-       '<p class=\"tags\">' + 
+       '<p class=\"tags\">' +
        '<% if (obj.id) {  %><%= obj.id %><% } %>' +
        '<% if (obj.source) {  %>, <%= obj.source %><% } %>' +
        '<% if (obj.display_name) {  %>, <%= obj.display_name %><% } %>' +
        '<% if (obj.gender) {  %>, <%= obj.gender %><% } %>' +
        '</p>' +
      '</div>';
-    settings = { 
+    settings = {
       items            : views_facetedsearch_resultitems,
-      facets           : {         
+      facets           : {
         <?php
           $optionsArray = array();
           foreach($view->style_options as $eachOptionKey => $eachOptionValue){
@@ -33,13 +33,13 @@
             else {
               $label = $facet;
             }
-            
+
             $optionsArray[] = "'$facet' : '$label'";
           }
           $facetOptionsString = implode(', ', $optionsArray);
           print $facetOptionsString;
         ?>
-      },  
+      },
       resultSelector   : '#view_facetedsearch_results',
       facetSelector    : '#view_facetedsearch_facets',
       resultTemplate   : item_template,
@@ -52,17 +52,17 @@
     // use them!
     jQuery.facetelize(settings);
   });
-  
+
   var views_facetedsearch_resultitems = [
   <?php
     // Populate the results items from the views data.
     $resultCount = count($view->result);
     $resultIndex = 0;
-    
+
     if (count($view->style_plugin->rendered_fields) > 0){
       $attributeCount = count((array) $view->style_plugin->rendered_fields[0]);
     }
-    
+
     foreach ($view->style_plugin->rendered_fields  as $resultIndex => $eachResult) {
       $eachResult = (array) $eachResult; // Cast each object into an array.
       $attributeIndex = 0;
@@ -79,7 +79,7 @@
       print '}';
       $resultIndex ++;
       if ($resultIndex != $resultCount){
-        print ",\n";        
+        print ",\n";
       }
     }
   ?>
