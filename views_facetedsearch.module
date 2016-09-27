@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 include_once('theme/views_facetedsearch.theme.inc');
 
