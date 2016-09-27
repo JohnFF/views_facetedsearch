@@ -15,26 +15,22 @@
       items            : views_facetedsearch_resultitems,
       facets           : {
         <?php
-          $optionsArray = array();
-          foreach($view->style_options as $eachOptionKey => $eachOptionValue){
-            // Check that the option begins with 'views_facetedsearch_facets_'.
-            if (strpos($eachOptionKey, 'views_facetedsearch_facets_') === FALSE){
+          foreach($view->display['default']->handler->options['fields'] as $key => $facet){
+            if (!array_key_exists('views_facetedsearch_facets_' . $key, $view->style_options)){
               continue;
             }
-            if ($eachOptionValue == '0'){
+
+            if ($view->style_options['views_facetedsearch_facets_' . $key] === 0){
               continue;
             }
-            $facet = str_replace('views_facetedsearch_facets_', '', $eachOptionKey);
-            //$optionsArray[] = "'$facet' : '$facet'";
-            //die(print_r($view->display['default']->handler->options['fields'][$facet], TRUE));
-            if (array_key_exists('label', $view->display['default']->handler->options['fields'][$facet])) {
-              $label = $view->display['default']->handler->options['fields'][$facet]['label'];
+
+            if (array_key_exists('label', $view->display['default']->handler->options['fields'][$key])) {
+              $label = $view->display['default']->handler->options['fields'][$key]['label'];
             }
             else {
               $label = $facet;
             }
-
-            $optionsArray[] = "'$facet' : '$label'";
+            $optionsArray[] = "'$key' : '$label'";
           }
           $facetOptionsString = implode(', ', $optionsArray);
           print $facetOptionsString;
