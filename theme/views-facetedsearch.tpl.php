@@ -1,17 +1,19 @@
-<div id='facets'></div><div id='results'></div>
+<div id='view_facetedsearch_facets'></div><div id='view_facetedsearch_results'></div>
 <script type="text/javascript">
   jQuery(function(){
+    
     var item_template = 
      '<div class=\"item\">' +
        '<p class=\"tags\">' + 
        '<% if (obj.id) {  %><%= obj.id %><% } %>' +
-       '<% if (obj.civicrm_contact_source) {  %>, <%= obj.civicrm_contact_source %><% } %>' +
-       '<% if (obj.civicrm_contact_display_name) {  %>, <%= obj.civicrm_contact_display_name %><% } %>' +
+       '<% if (obj.source) {  %>, <%= obj.source %><% } %>' +
+       '<% if (obj.display_name) {  %>, <%= obj.display_name %><% } %>' +
+       '<% if (obj.gender) {  %>, <%= obj.gender %><% } %>' +
        '</p>' +
      '</div>';
     settings = { 
       items            : views_facetedsearch_resultitems,
-      facets           : {            
+      facets           : {         
         <?php
           $optionsArray = array();
           foreach($view->style_options as $eachOptionKey => $eachOptionValue){
@@ -23,21 +25,29 @@
               continue;
             }
             $facet = str_replace('views_facetedsearch_facets_', '', $eachOptionKey);
-              $optionsArray[] = "'$facet' : '$facet'";
-              
+            //$optionsArray[] = "'$facet' : '$facet'";
+            //die(print_r($view->display['default']->handler->options['fields'][$facet], TRUE));
+            if (array_key_exists('label', $view->display['default']->handler->options['fields'][$facet])) {
+              $label = $view->display['default']->handler->options['fields'][$facet]['label'];
+            }
+            else {
+              $label = $facet;
+            }
+            
+            $optionsArray[] = "'$facet' : '$label'";
           }
           $facetOptionsString = implode(', ', $optionsArray);
-          print implode(', ', $optionsArray);
+          print $facetOptionsString;
         ?>
       },  
-      resultSelector   : '#results',
-      facetSelector    : '#facets',
+      resultSelector   : '#view_facetedsearch_results',
+      facetSelector    : '#view_facetedsearch_facets',
       resultTemplate   : item_template,
-      enablePagination : false,
-      paginationCount  : 50,
-      orderByOptions   : {<?php print $facetOptionsString ?>, 'RANDOM': 'Random'},
+      enablePagination : <?php print $view->style_options['views_facetedsearch_enable_pagination'] ? 'true' : 'false' ?>,
+      paginationCount  : <?php print $view->style_options['views_facetedsearch_pagination_count'] ?>,
+      orderByOptions   : {<?php print $facetOptionsString ?>, 'RANDOM': 'Random'}
       //facetSortOption  : {'civicrm_contact_source': [\"0\", \"1\"]}
-    }   
+    }
 
     // use them!
     jQuery.facetelize(settings);
@@ -45,14 +55,15 @@
   
   var views_facetedsearch_resultitems = [
   <?php
+    // Populate the results items from the views data.
     $resultCount = count($view->result);
     $resultIndex = 0;
     
-    if (count($view->result) > 0){
-      $attributeCount = count((array) $view->result[0]);
+    if (count($view->style_plugin->rendered_fields) > 0){
+      $attributeCount = count((array) $view->style_plugin->rendered_fields[0]);
     }
     
-    foreach ($view->result as $resultIndex => $eachResult) {
+    foreach ($view->style_plugin->rendered_fields  as $resultIndex => $eachResult) {
       $eachResult = (array) $eachResult; // Cast each object into an array.
       $attributeIndex = 0;
       print '{';
