@@ -2,6 +2,10 @@
 
 include_once('theme/views_facetedsearch.theme.inc');
 
+function template_preprocess_views_facetedsearch(&$vars) {
+  _views_facetedsearch_preprocess_views_facetedsearch($vars);
+}
+
 /**
  * Implements hook_views_plugins().
  */

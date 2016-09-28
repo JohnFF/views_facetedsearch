@@ -13,39 +13,13 @@
      '</div>';
     settings = {
       items            : views_facetedsearch_resultitems,
-      facets           : {
-        <?php
-          $optionsArray = array();
-          foreach($view->style_options as $eachOptionKey => $eachOptionValue){
-            // Check that the option begins with 'views_facetedsearch_facets_'.
-            if (strpos($eachOptionKey, 'views_facetedsearch_facets_') === FALSE){
-              continue;
-            }
-            if ($eachOptionValue == '0'){
-              continue;
-            }
-            $facet = str_replace('views_facetedsearch_facets_', '', $eachOptionKey);
-            //$optionsArray[] = "'$facet' : '$facet'";
-            //die(print_r($view->display['default']->handler->options['fields'][$facet], TRUE));
-            if (array_key_exists('label', $view->display['default']->handler->options['fields'][$facet])) {
-              $label = $view->display['default']->handler->options['fields'][$facet]['label'];
-            }
-            else {
-              $label = $facet;
-            }
-
-            $optionsArray[] = "'$facet' : '$label'";
-          }
-          $facetOptionsString = implode(', ', $optionsArray);
-          print $facetOptionsString;
-        ?>
-      },
+      facets           : { <?php print $views_facetedsearch_facets; ?> },
       resultSelector   : '#view_facetedsearch_results',
       facetSelector    : '#view_facetedsearch_facets',
       resultTemplate   : item_template,
       enablePagination : <?php print $view->style_options['views_facetedsearch_enable_pagination'] ? 'true' : 'false' ?>,
       paginationCount  : <?php print $view->style_options['views_facetedsearch_pagination_count'] ?>,
-      orderByOptions   : {<?php print $facetOptionsString ?>, 'RANDOM': 'Random'}
+      orderByOptions   : {<?php print $views_facetedsearch_facetorders ?>, 'RANDOM': 'Random'}
       //facetSortOption  : {'civicrm_contact_source': [\"0\", \"1\"]}
     }
 
