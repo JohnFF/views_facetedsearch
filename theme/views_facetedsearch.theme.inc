@@ -9,6 +9,7 @@ function _views_facetedsearch_get_facets($view, $option_start){
   $optionsArray = array();
   foreach($view->display['default']->handler->options['fields'] as $key => $facet){
     if (!array_key_exists($option_start . $key, $view->style_options)){
+      watchdog('views_facetedsearch', 'Could not find %1 in list of options', array('%1' => $option_start . $key), WATCHDOG_ERROR);
       continue;
     }
 
