@@ -18,9 +18,9 @@
       facetSelector    : '#view_facetedsearch_facets',
       resultTemplate   : item_template,
       enablePagination : <?php print $view->style_options['views_facetedsearch_enable_pagination'] ? 'true' : 'false' ?>,
-      paginationCount  : <?php print $view->style_options['views_facetedsearch_pagination_count'] ?>,
+      paginationCount  : <?php print $view->style_options['views_facetedsearch_pagination_count']  ? 
+                                       $view->style_options['views_facetedsearch_pagination_count'] : '0' ?>,
       orderByOptions   : {<?php print $views_facetedsearch_facetorders ?>, 'RANDOM': 'Random'}
-      //facetSortOption  : {'civicrm_contact_source': [\"0\", \"1\"]}
     }
 
     // use them!

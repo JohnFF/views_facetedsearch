@@ -12,6 +12,37 @@ class views_facetedsearch_plugin_style_facetedsearch extends views_plugin_style 
     return $options;
   }
 
+  function safe_add_option(&$form, $type, $facetOptionKey, $title, $description){
+    if (array_key_exists($facetOptionKey, $this->options)){
+      $currentValue = $this->options[$facetOptionKey];
+    }
+    else {
+      $currentValue = NULL;
+    }
+
+    $form[$facetOptionKey] = array(
+      '#type' => $type,
+      '#title' => t($title),
+      '#default_value' => $currentValue,
+    );
+    if ($description != ''){
+      $form[$facetOptionKey]['#description'] = $description;
+    }
+  }
+
+  function safe_add_option_from_field(&$form, $prefix, $eachSelectedField, $title){
+    $facetOptionKey = $prefix . $eachSelectedField['field'];
+
+    if (array_key_exists('label', $eachSelectedField)){
+      $optionTitle = t($eachSelectedField['label']);
+    }
+    else {
+      $optionTitle = t($eachSelectedField['id']);
+    }
+
+    $this->safe_add_option($form, 'checkbox', $facetOptionKey, $optionTitle, '');
+  }
+
   // Build the settings form for the view.
   function options_form(&$form, &$form_state) {
 
@@ -31,47 +62,13 @@ class views_facetedsearch_plugin_style_facetedsearch extends views_plugin_style 
         '#markup' => '<tr><td>',
       );
 
-      $facetOptionKey = 'views_facetedsearch_facets_' . $eachSelectedField['field'] ;
-      if (array_key_exists('label', $eachSelectedField)){
-        $optionTitle = t($eachSelectedField['label']);
-      }
-      else {
-        $optionTitle = t($eachSelectedField['id']);
-      }
-
-      if (array_key_exists($facetOptionKey, $this->options)){
-        $currentValue = $this->options[$facetOptionKey];
-      }
-      else {
-        $currentValue = NULL;
-      }
-
-      $form[$facetOptionKey] = array(
-        '#type' => 'checkbox',
-        '#title' => t('Allow searching by ' . $optionTitle),
-        '#default_value' => $currentValue,
-        // '#description' => t('Check box to display allow searching by this facet.'),
-      );
+      $this->safe_add_option_from_field($form, 'views_facetedsearch_facets_' , $eachSelectedField, 'Allow searching by ');
 
       $form['views_facetedsearch_cell_separator_' . $selectedFieldKey] = array(
         '#markup' => '</td><td>',
       );
 
-      $orderOptionKey = 'views_facetedsearch_facetorders_' . $eachSelectedField['field'] ;
-
-      if (array_key_exists($orderOptionKey, $this->options)){
-        $currentValue = $this->options[$orderOptionKey];
-      }
-      else {
-        $currentValue = NULL;
-      }
-
-      $form[$orderOptionKey] = array(
-        '#type' => 'checkbox',
-        '#title' => t('Allow ordering by ' . $optionTitle),
-        '#default_value' => $currentValue,
-        // '#description' => t('Check box to display allow ordering by this facet.'),
-      );
+      $this->safe_add_option_from_field($form, 'views_facetedsearch_facetorders_' , $eachSelectedField, 'Allow ordering by ');
 
       $form['views_facetedsearch_row_close_' . $selectedFieldKey] = array(
         '#markup' => '</td></tr>',
@@ -82,26 +79,14 @@ class views_facetedsearch_plugin_style_facetedsearch extends views_plugin_style 
       '#markup' => '</table>',
     );
 
-    $form['views_facetedsearch_enable_pagination'] = array(
-        '#type' => 'checkbox',
-        '#title' => t('Enable Pagination'),
-        '#default_value' => $this->options['views_facetedsearch_enable_pagination'],
-        '#description' => t('Check box to display allow searching by facet.'),
-      );
+    $this->safe_add_option($form, 'checkbox', 'views_facetedsearch_enable_pagination',
+        'Enable Pagination', 'Check box to allow pagination.');
 
-    $form['views_facetedsearch_pagination_count'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Pagination Count'),
-      '#default_value' => $this->options['views_facetedsearch_pagination_count'],
-      '#description' => t('Check box to display allow searching by facet.'),
-    );
+    $this->safe_add_option($form, 'textfield', 'views_facetedsearch_pagination_count',
+        'Results per Page', 'Enter the number of results initially shown.');
 
-  /*  $form['views_facetedsearch_item_template'] = array(
-      '#type' => 'textarea',
-      '#title' => t('Item Template'),
-      //'#default_value' => $this->options['views_facetedsearch_item_template'],
-      //'#description' => t('Check box to display allow searching by facet.'),
-    );*/
+/*    $this->safe_add_option($form, 'textarea', 'views_facetedsearch_item_template',
+        'Item Template', 'Check box to display allow searching by facet.');*/
   }
 
   function render(){
@@ -121,10 +106,5 @@ class views_facetedsearch_plugin_style_facetedsearch extends views_plugin_style 
 //'rows' => $this->view->result,
   //    'mapping' => $this->define_mapping(),
     ));
-}
-
-
-  /*function render_fields($result) {
-    // die(print_r($result, TRUE));
-  }*/
+  }
 }
