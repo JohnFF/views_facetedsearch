@@ -13,35 +13,13 @@
      '</div>';
     settings = {
       items            : views_facetedsearch_resultitems,
-      facets           : {
-        <?php
-          foreach($view->display['default']->handler->options['fields'] as $key => $facet){
-            if (!array_key_exists('views_facetedsearch_facets_' . $key, $view->style_options)){
-              continue;
-            }
-
-            if ($view->style_options['views_facetedsearch_facets_' . $key] === 0){
-              continue;
-            }
-
-            if (array_key_exists('label', $view->display['default']->handler->options['fields'][$key])) {
-              $label = $view->display['default']->handler->options['fields'][$key]['label'];
-            }
-            else {
-              $label = $facet;
-            }
-            $optionsArray[] = "'$key' : '$label'";
-          }
-          $facetOptionsString = implode(', ', $optionsArray);
-          print $facetOptionsString;
-        ?>
-      },
+      facets           : { <?php print $views_facetedsearch_facets; ?> },
       resultSelector   : '#view_facetedsearch_results',
       facetSelector    : '#view_facetedsearch_facets',
       resultTemplate   : item_template,
       enablePagination : <?php print $view->style_options['views_facetedsearch_enable_pagination'] ? 'true' : 'false' ?>,
       paginationCount  : <?php print $view->style_options['views_facetedsearch_pagination_count'] ?>,
-      orderByOptions   : {<?php print $facetOptionsString ?>, 'RANDOM': 'Random'}
+      orderByOptions   : {<?php print $views_facetedsearch_facetorders ?>, 'RANDOM': 'Random'}
       //facetSortOption  : {'civicrm_contact_source': [\"0\", \"1\"]}
     }
 

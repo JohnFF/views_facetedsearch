@@ -57,7 +57,7 @@ class views_facetedsearch_plugin_style_facetedsearch extends views_plugin_style 
         '#markup' => '</td><td>',
       );
 
-      $orderOptionKey = 'views_facetedsearch_orders_' . $eachSelectedField['table'] . '_' . $eachSelectedField['field'] ;
+      $orderOptionKey = 'views_facetedsearch_facetorders_' . $eachSelectedField['field'] ;
 
       if (array_key_exists($orderOptionKey, $this->options)){
         $currentValue = $this->options[$orderOptionKey];
