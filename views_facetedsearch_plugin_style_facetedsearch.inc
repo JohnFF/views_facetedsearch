@@ -31,7 +31,7 @@ class views_facetedsearch_plugin_style_facetedsearch extends views_plugin_style 
   }
 
   function safe_add_option_from_field(&$form, $prefix, $eachSelectedField, $title){
-    $facetOptionKey = $prefix . $eachSelectedField['field'];
+    $facetOptionKey = $prefix . $eachSelectedField['id'];
 
     if (array_key_exists('label', $eachSelectedField)){
       $optionTitle = t($eachSelectedField['label']);
@@ -57,7 +57,6 @@ class views_facetedsearch_plugin_style_facetedsearch extends views_plugin_style 
     );
 
     foreach($selectedFields as $selectedFieldKey => $eachSelectedField){
-
       $form['views_facetedsearch_row_' . $selectedFieldKey] = array(
         '#markup' => '<tr><td>',
       );
