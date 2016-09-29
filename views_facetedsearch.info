@@ -1,5 +1,5 @@
 core = "7.x"
-name = "Viewss Faceted Search"
+name = "Views Faceted Search"
 description = "Adds a Faceted Search layer to a given view."
 package = "Views"
 dependencies[] = views_ui

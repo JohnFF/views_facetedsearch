@@ -1,19 +1,19 @@
 <?php
 
-function  _views_facetedsearch_preprocess_views_facetedsearch(&$vars){
+function  _views_facetedsearch_preprocess_views_facetedsearch(&$vars) {
   $vars['views_facetedsearch_facets'] = _views_facetedsearch_get_facets($vars['view'], 'views_facetedsearch_facets_');
   $vars['views_facetedsearch_facetorders'] = _views_facetedsearch_get_facets($vars['view'], 'views_facetedsearch_facetorders_');
 }
 
-function _views_facetedsearch_get_facets($view, $option_start){
-  $optionsArray = array();
-  foreach($view->display['default']->handler->options['fields'] as $key => $facet){
-    if (!array_key_exists($option_start . $key, $view->style_options)){
+function _views_facetedsearch_get_facets($view, $option_start) {
+  $options_array = array();
+  foreach ($view->display['default']->handler->options['fields'] as $key => $facet) {
+    if (!array_key_exists($option_start . $key, $view->style_options)) {
       watchdog('views_facetedsearch', 'Could not find %1 in list of options', array('%1' => $option_start . $key), WATCHDOG_ERROR);
       continue;
     }
 
-    if ($view->style_options[$option_start . $key] === 0){
+    if ($view->style_options[$option_start . $key] === 0) {
       continue;
     }
 
@@ -23,8 +23,8 @@ function _views_facetedsearch_get_facets($view, $option_start){
     else {
       $label = $facet;
     }
-    $optionsArray[] = "'$key' : '$label'";
+    $options_array[] = "'$key' : '$label'";
   }
-  $facetOptionsString = implode(', ', $optionsArray);
-  return $facetOptionsString;
+  $facet_options_string = implode(', ', $options_array);
+  return $facet_options_string;
 }
