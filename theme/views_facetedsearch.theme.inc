@@ -1,10 +1,21 @@
 <?php
 
+/**
+ * Create the variables used by the theme.
+ * @param type $vars
+ */
 function  _views_facetedsearch_preprocess_views_facetedsearch(&$vars) {
   $vars['views_facetedsearch_facets'] = _views_facetedsearch_get_facets($vars['view'], 'views_facetedsearch_facets_');
   $vars['views_facetedsearch_facetorders'] = _views_facetedsearch_get_facets($vars['view'], 'views_facetedsearch_facetorders_');
 }
 
+/**
+ * Create an individual variable used by the theme.
+ *
+ * @param Object $view
+ * @param string $option_start
+ * @return string
+ */
 function _views_facetedsearch_get_facets($view, $option_start) {
   $options_array = array();
   foreach ($view->display['default']->handler->options['fields'] as $key => $facet) {

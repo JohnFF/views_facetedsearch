@@ -13,7 +13,7 @@ class views_facetedsearch_plugin_style_facetedsearch extends views_plugin_style 
   /**
    * Safely add an option to the option form.
    * This means that if the option is unset it is set to null.
-   * 
+   *
    * @param array $form
    * @param string $type
    * @param string $facet_option_key
@@ -41,7 +41,7 @@ class views_facetedsearch_plugin_style_facetedsearch extends views_plugin_style 
 
   /**
    * Safely add an option from a field.
-   * 
+   *
    * @param array $form
    * @param string $prefix
    * @param array $each_selected_field
@@ -62,7 +62,7 @@ class views_facetedsearch_plugin_style_facetedsearch extends views_plugin_style 
 
   /**
    * Add the needed options to the format's settings form.
-   * 
+   *
    * @param array $form
    * @param array $form_state
    */
@@ -115,7 +115,7 @@ class views_facetedsearch_plugin_style_facetedsearch extends views_plugin_style 
 
   /**
    * Add the needed jQuery and render the fields.
-   * 
+   *
    * @return theme
    */
   function render() {

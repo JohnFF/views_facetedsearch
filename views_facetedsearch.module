@@ -9,7 +9,7 @@ include_once('theme/views_facetedsearch.theme.inc');
 
 /**
  * Wrapper function for the template's preprocess hook. This assists caching.
- * 
+ *
  * @param type $vars
  */
 function template_preprocess_views_facetedsearch(&$vars) {
