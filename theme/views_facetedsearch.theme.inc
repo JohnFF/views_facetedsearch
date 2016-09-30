@@ -7,6 +7,8 @@
 function  _views_facetedsearch_preprocess_views_facetedsearch(&$vars) {
   $vars['views_facetedsearch_facets'] = _views_facetedsearch_get_facets($vars['view'], 'views_facetedsearch_facets_');
   $vars['views_facetedsearch_facetorders'] = _views_facetedsearch_get_facets($vars['view'], 'views_facetedsearch_facetorders_');
+  $vars['views_facetedsearch_itemtemplate'] = str_replace(array("\r", "\n"), '', $vars['view']->style_options['views_facetedsearch_itemtemplate']);
+  $vars['views_facetedsearch_resultscontainer'] = str_replace(array("\r", "\n"), '', $vars['view']->style_options['views_facetedsearch_resultscontainer']);
 }
 
 /**

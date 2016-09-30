@@ -109,8 +109,11 @@ class views_facetedsearch_plugin_style_facetedsearch extends views_plugin_style 
     $this->safe_add_option($form, 'textfield', 'views_facetedsearch_pagination_count',
         'Results per Page', 'Enter the number of results initially shown.');
 
-/*    $this->safe_add_option($form, 'textarea', 'views_facetedsearch_item_template',
-        'Item Template', 'Check box to display allow searching by facet.');*/
+    $this->safe_add_option($form, 'textarea', 'views_facetedsearch_itemtemplate',
+        'Item Template', 'This should be HTML that contains the keys of what you want to display in the form <%= obj.{field} %>, e.g. <%= obj.id %>.');
+
+    $this->safe_add_option($form, 'textfield', 'views_facetedsearch_resultscontainer',
+        'Results Container', 'This is the HTML element that the results appear in. It must have the id "view_facetedsearch_results". e.g. <div id="view_facetedsearch_results"></div>');
   }
 
   /**

@@ -1,16 +1,8 @@
-<div id='view_facetedsearch_facets'></div><div id='view_facetedsearch_results'></div>
+<div id='view_facetedsearch_facets'></div>
+<?php print $views_facetedsearch_resultscontainer; ?>
 <script type="text/javascript">
   jQuery(function(){
-
-    var item_template =
-     '<div class=\"item\">' +
-       '<p class=\"tags\">' +
-       '<% if (obj.id) {  %><%= obj.id %><% } %>' +
-       '<% if (obj.source) {  %>, <%= obj.source %><% } %>' +
-       '<% if (obj.display_name) {  %>, <%= obj.display_name %><% } %>' +
-       '<% if (obj.gender) {  %>, <%= obj.gender %><% } %>' +
-       '</p>' +
-     '</div>';
+    var item_template = '<?php print $views_facetedsearch_itemtemplate; ?>';
     settings = {
       items            : views_facetedsearch_resultitems,
       facets           : { <?php print $views_facetedsearch_facets; ?> },
@@ -20,7 +12,7 @@
       enablePagination : <?php print $view->style_options['views_facetedsearch_enable_pagination'] ? 'true' : 'false' ?>,
       paginationCount  : <?php print $view->style_options['views_facetedsearch_pagination_count']  ? 
                                        $view->style_options['views_facetedsearch_pagination_count'] : '0' ?>,
-      orderByOptions   : {<?php print $views_facetedsearch_facetorders ?>, 'RANDOM': 'Random'}
+      orderByOptions   : {<?php print $views_facetedsearch_facetorders ?>}
     }
 
     // use them!
@@ -43,7 +35,7 @@
       print '{';
       foreach ($eachResult as $attributeKey => $attribute){
         $attribute = $attribute ? $attribute : "NONE";
-        print '"' . addslashes($attributeKey) . '" : "' . addslashes($attribute) . '"';
+        print '"' . addslashes($attributeKey) . '" : "' . addslashes(str_replace(array("\r", "\n"), '', $attribute)) . '"';
         $attributeIndex++;
         if ($attributeIndex != $attributeCount){
           print ',';
