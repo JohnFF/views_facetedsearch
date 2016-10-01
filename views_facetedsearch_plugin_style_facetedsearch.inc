@@ -102,7 +102,7 @@ class views_facetedsearch_plugin_style_facetedsearch extends views_plugin_style 
       '#markup' => '</table>',
     );
 
-    // Add other one-off options here.
+    // Add other one-off options here. Don't forget to add these to _views_facetedsearch_preprocess_views_facetedsearch.
     $this->safe_add_option($form, 'checkbox', 'views_facetedsearch_enable_pagination',
         'Enable Pagination', 'Check box to allow pagination.');
 
@@ -117,6 +117,12 @@ class views_facetedsearch_plugin_style_facetedsearch extends views_plugin_style 
     
     $form['views_facetedsearch_resultscontainer']['#size'] = array('150');
     $form['views_facetedsearch_resultscontainer']['#maxlength'] = array('150');
+    
+    $this->safe_add_option($form, 'textfield', 'views_facetedsearch_resultsheader',
+        'Results Header', 'This is the HTML element that appears above the results inside the results container. Useful for table headers.');
+    
+    $form['views_facetedsearch_resultsheader']['#size'] = array('150');
+    $form['views_facetedsearch_resultsheader']['#maxlength'] = array('150');
     
     $this->safe_add_option($form, 'textfield', 'views_facetedsearch_facetcontainer',
         'Facet Container', 'This is the HTML element that the filter options appear in. It must have the class "facetsearch" and an id variable. e.g. <div class="facetsearch" id=<%= id %> ></div>');

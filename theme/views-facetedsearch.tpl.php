@@ -19,6 +19,7 @@
       enablePagination   : <?php print $view->style_options['views_facetedsearch_enable_pagination'] ? 'true' : 'false' ?>,
       paginationCount    : <?php print $view->style_options['views_facetedsearch_pagination_count']  ? 
                                        $view->style_options['views_facetedsearch_pagination_count'] : '0' ?>,
+      resultsHeader      : '<?php print $view->style_options['views_facetedsearch_resultsheader'] ?>',
       bottomContainer    : '<table><tr class=bottomline></tr></table>',
       orderByTemplate    : '<td class=orderby><span class="orderby-title">Sort by: </span><ul><% _.each(options, function(value, key) { %>'+
                            '<li class=orderbyitem id=orderby_<%= key %>>'+

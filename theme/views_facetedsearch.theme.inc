@@ -13,6 +13,8 @@ function  _views_facetedsearch_preprocess_views_facetedsearch(&$vars) {
       '', $vars['view']->style_options['views_facetedsearch_itemtemplate']);
   $vars['views_facetedsearch_resultscontainer'] = str_replace(array("\r", "\n"),
       '', $vars['view']->style_options['views_facetedsearch_resultscontainer']);
+  $vars['views_facetedsearch_resultsheader'] = str_replace(array("\r", "\n"),
+      '', $vars['view']->style_options['views_facetedsearch_resultsheader']);
   $vars['views_facetedsearch_facetcontainer'] = str_replace(array("\r", "\n"),
       '', $vars['view']->style_options['views_facetedsearch_facetcontainer']);
   $vars['views_facetedsearch_facetlistcontainer'] = str_replace(array("\r", "\n"),
