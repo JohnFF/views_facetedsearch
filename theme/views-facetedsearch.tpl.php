@@ -1,6 +1,9 @@
 <table id='view_facetedsearch_facets'><tr></tr></table>
-<div class=facettotalcount></div>
-<div class=deselectstartover>Deselect all filters</div>
+<table>
+      <td><div class=facettotalcount></div></td>
+      <td><div class=deselectstartover>Deselect all filters</div></td>
+      <td><div class=orderby></div></td>
+</table>
 <?php print $views_facetedsearch_resultscontainer; ?>
 <script type="text/javascript">
   jQuery(function(){

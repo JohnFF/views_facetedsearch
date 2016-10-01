@@ -20,9 +20,9 @@ var defaults = {
   facetListContainer : '<div class=facetlist></div>',
   listItemTemplate   : '<div class=facetitem id="<%= id %>"><%= name %> <span class=facetitemcount>(<%= count %>)</span></div>',
   bottomContainer    : '<div class=bottomline></div>',
-  orderByTemplate    : '<div class=orderby><span class="orderby-title">Sort by: </span><ul><% _.each(options, function(value, key) { %>'+
+  orderByTemplate    : '<span class="orderby-title">Sort by: </span><ul><% _.each(options, function(value, key) { %>'+
                        '<li class=orderbyitem id=orderby_<%= key %>>'+
-                       '<%= value %> </li> <% }); %></ul></div>',
+                       '<%= value %> </li> <% }); %></ul>',
   countTemplate      : '<div class=facettotalcount><%= count %> Results</div>',
   deselectTemplate   : '<div class=deselectstartover>Deselect all filters</div>',
   resultTemplate     : '<div class=facetresultbox><%= name %></div>',
@@ -249,7 +249,7 @@ function createFacetUI() {
   // generate the "order by" options:
   var ordertemplate = _.template(settings.orderByTemplate);
   var itemHtml = jQuery(ordertemplate({'options': settings.orderByOptions}));
-  jQuery(bottom).append(itemHtml);
+  jQuery('.orderby').append(itemHtml);
   jQuery(settings.facetSelector).after(bottom);
   jQuery('.orderbyitem').each(function(){
     var id = this.id.substr(8);
@@ -267,11 +267,10 @@ function createFacetUI() {
     updateResults();
   });
   // Append deselect filters button
-  var deselect = jQuery(settings.deselectTemplate).click(function(event){
+  var deselect = jQuery('.deselectstartover').click(function(event){
     settings.state.filters = {};
     jQuery.facetUpdate();
   });
-  jQuery(bottom).append(deselect);
   jQuery(settings.facetSelector).trigger("facetuicreated");
 }
 
