@@ -34,33 +34,6 @@
   });
 
   var views_facetedsearch_resultitems = [
-  <?php
-    // Populate the results items from the views data.
-    $resultCount = count($view->result);
-    $resultIndex = 0;
-
-    if (count($view->style_plugin->rendered_fields) > 0){
-      $attributeCount = count((array) $view->style_plugin->rendered_fields[0]);
-    }
-
-    foreach ($view->style_plugin->rendered_fields  as $resultIndex => $eachResult) {
-      $eachResult = (array) $eachResult; // Cast each object into an array.
-      $attributeIndex = 0;
-      print '{';
-      foreach ($eachResult as $attributeKey => $attribute){
-        print '"' . addslashes($attributeKey) . '" : "' . addslashes(str_replace(array("\r", "\n"), '', $attribute)) . '"';
-        $attributeIndex++;
-        if ($attributeIndex != $attributeCount){
-          print ',';
-        }
-        print "\n";
-      }
-      print '}';
-      $resultIndex ++;
-      if ($resultIndex != $resultCount){
-        print ",\n";
-      }
-    }
-  ?>
+  <?php print $views_facetedsearch_results ?>
 ];
 </script>

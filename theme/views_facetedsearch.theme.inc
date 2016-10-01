@@ -19,6 +19,8 @@ function  _views_facetedsearch_preprocess_views_facetedsearch(&$vars) {
       '', $vars['view']->style_options['views_facetedsearch_facetcontainer']);
   $vars['views_facetedsearch_facetlistcontainer'] = str_replace(array("\r", "\n"),
       '', $vars['view']->style_options['views_facetedsearch_facetlistcontainer']);
+  
+  $vars['views_facetedsearch_results'] = _views_facetedsearch_get_results($vars['view']);
 }
 
 /**
@@ -51,4 +53,41 @@ function _views_facetedsearch_get_facets($view, $option_start) {
   }
   $facet_options_string = implode(', ', $options_array);
   return $facet_options_string;
+}
+
+/**
+ * Translates the view data into a format that can be interpreted.
+ * 
+ * @param Object $view
+ * @return string $output - the view data in the format faceted search can interpret.
+ */
+function _views_facetedsearch_get_results($view){
+    $output = '';
+    
+    // Populate the results items from the views data.
+    $resultCount = count($view->result);
+    $resultIndex = 0;
+
+    if (count($view->style_plugin->rendered_fields) > 0){
+      $attributeCount = count((array) $view->style_plugin->rendered_fields[0]);
+    }
+
+    foreach ($view->style_plugin->rendered_fields  as $resultIndex => $eachResult) {
+      $eachResult = (array) $eachResult; // Cast each object into an array.
+      $attributeIndex = 0;
+      $output .= '{';
+      foreach ($eachResult as $attributeKey => $attribute){
+        $output .= '"' . addslashes($attributeKey) . '" : "' . addslashes(str_replace(array("\r", "\n"), '', $attribute)) . '"';
+        $attributeIndex++;
+        if ($attributeIndex != $attributeCount){
+          $output .= ",\n";
+        }
+      }
+      $output .= '}';
+      $resultIndex ++;
+      if ($resultIndex != $resultCount){
+        $output .= ",\n";
+      }
+    }
+  return $output;  
 }
