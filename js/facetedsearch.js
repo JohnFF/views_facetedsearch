@@ -245,7 +245,7 @@ function createFacetUI() {
   // Append total result count
   var bottom = jQuery(settings.bottomContainer);
   countHtml = _.template(settings.countTemplate, {count: settings.currentResults.length});
-  jQuery(bottom).append(countHtml);
+  jQuery('.facettotalcount').replaceWith(countHtml);
   // generate the "order by" options:
   var ordertemplate = _.template(settings.orderByTemplate);
   var itemHtml = jQuery(ordertemplate({'options': settings.orderByOptions}));
@@ -309,7 +309,7 @@ function updateFacetUI() {
     });
   });
   countHtml = _.template(settings.countTemplate, {count: settings.currentResults.length});
-  jQuery(settings.facetSelector + ' .facettotalcount').replaceWith(countHtml);
+  jQuery('.facettotalcount').replaceWith(countHtml);
 }
 
 /**
