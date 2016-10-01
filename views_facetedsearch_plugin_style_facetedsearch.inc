@@ -74,8 +74,11 @@ class views_facetedsearch_plugin_style_facetedsearch extends views_plugin_style 
         display['default']->handler->view->display_handler->default_display->display->
         display_options['fields'];
 
+    $form['line_break_1'] = array(
+      '#markup' => '<br/>',
+    );
     $form['views_facetedsearch_table'] = array(
-      '#markup' => '<table>',
+      '#markup' => '<table><tr><th>Filter on</th><th>Sort by</th></tr>',
     );
 
     // Iterate through each field, putting its enable and allow order by option
