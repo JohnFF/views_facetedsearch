@@ -35,7 +35,7 @@ class views_facetedsearch_plugin_style_facetedsearch extends views_plugin_style 
     );
 
     if ($description != '') {
-      $form[$facet_option_key]['#description'] = $description;
+      $form[$facet_option_key]['#description'] = htmlentities($description);
     }
   }
 
@@ -114,6 +114,12 @@ class views_facetedsearch_plugin_style_facetedsearch extends views_plugin_style 
 
     $this->safe_add_option($form, 'textfield', 'views_facetedsearch_resultscontainer',
         'Results Container', 'This is the HTML element that the results appear in. It must have the id "view_facetedsearch_results". e.g. <div id="view_facetedsearch_results"></div>');
+    
+    $this->safe_add_option($form, 'textfield', 'views_facetedsearch_facetcontainer',
+        'Facet Container', 'This is the HTML element that the filter options appear in. It must have the class "facetsearch" and an id variable. e.g. <div class="facetsearch" id=<%= id %> ></div>');
+    
+    $this->safe_add_option($form, 'textfield', 'views_facetedsearch_facetlistcontainer',
+        'Facet List Container', 'This is the HTML element that the facet options appear in. It must have the class "facetlist". e.g. <div class="facetlist"></div>');
   }
 
   /**
