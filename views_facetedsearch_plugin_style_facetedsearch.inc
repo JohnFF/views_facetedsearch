@@ -74,8 +74,11 @@ class views_facetedsearch_plugin_style_facetedsearch extends views_plugin_style 
         display['default']->handler->view->display_handler->default_display->display->
         display_options['fields'];
 
+    $form['line_break_1'] = array(
+      '#markup' => '<br/>',
+    );
     $form['views_facetedsearch_table'] = array(
-      '#markup' => '<table>',
+      '#markup' => '<table><tr><th>Filter on</th><th>Sort by</th></tr>',
     );
 
     // Iterate through each field, putting its enable and allow order by option
@@ -102,7 +105,7 @@ class views_facetedsearch_plugin_style_facetedsearch extends views_plugin_style 
       '#markup' => '</table>',
     );
 
-    // Add other one-off options here.
+    // Add other one-off options here. Don't forget to add these to _views_facetedsearch_preprocess_views_facetedsearch.
     $this->safe_add_option($form, 'checkbox', 'views_facetedsearch_enable_pagination',
         'Enable Pagination', 'Check box to allow pagination.');
 
@@ -114,12 +117,27 @@ class views_facetedsearch_plugin_style_facetedsearch extends views_plugin_style 
 
     $this->safe_add_option($form, 'textfield', 'views_facetedsearch_resultscontainer',
         'Results Container', 'This is the HTML element that the results appear in. It must have the id "view_facetedsearch_results". e.g. <div id="view_facetedsearch_results"></div>');
-    
+
+    $form['views_facetedsearch_resultscontainer']['#size'] = array('150');
+    $form['views_facetedsearch_resultscontainer']['#maxlength'] = array('150');
+
+    $this->safe_add_option($form, 'textfield', 'views_facetedsearch_resultsheader',
+        'Results Header', 'This is the HTML element that appears above the results inside the results container. Useful for table headers.');
+
+    $form['views_facetedsearch_resultsheader']['#size'] = array('150');
+    $form['views_facetedsearch_resultsheader']['#maxlength'] = array('150');
+
     $this->safe_add_option($form, 'textfield', 'views_facetedsearch_facetcontainer',
         'Facet Container', 'This is the HTML element that the filter options appear in. It must have the class "facetsearch" and an id variable. e.g. <div class="facetsearch" id=<%= id %> ></div>');
-    
-    $this->safe_add_option($form, 'textfield', 'views_facetedsearch_facetlistcontainer',
-        'Facet List Container', 'This is the HTML element that the facet options appear in. It must have the class "facetlist". e.g. <div class="facetlist"></div>');
+
+    $this->safe_add_option($form, 'textfield', 'views_facetedsearch_facetlist',
+        'Facet Lists', 'This is the HTML element that the facet options appear in. It must have the class "facetlist". e.g. <div class="facetlist"></div>');
+  
+    $this->safe_add_option($form, 'textarea', 'views_facetedsearch_controlpanel',
+        'Control Panel', 'This is the HTML element that the control panel appears in. It must contain elements that have the classes facettotalcount, deselectstartover, orderby for population.');
+
+    $this->safe_add_option($form, 'textarea', 'views_facetedsearch_facetpanel',
+        'Facet Panel', 'This is the HTML element that the facet containers appear in. It must have the id "view_facetedsearch_facetpanel". e.g. <div id="view_facetedsearch_facetpanel"></div>');    
   }
 
   /**

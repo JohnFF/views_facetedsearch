@@ -26,6 +26,7 @@ var defaults = {
   countTemplate      : '<div class=facettotalcount><%= count %> Results</div>',
   deselectTemplate   : '<div class=deselectstartover>Deselect all filters</div>',
   resultTemplate     : '<div class=facetresultbox><%= name %></div>',
+  resultsHeader      : '',
   noResults          : '<div class=results>Sorry, but no items match these criteria</div>',
   orderByOptions     : {'a': 'by A', 'b': 'by B', 'RANDOM': 'by random'},
   state              : {
@@ -325,7 +326,8 @@ function showMoreResults() {
       settings.enablePagination ? 
       Math.min(settings.currentResults.length - settings.state.shownResults, settings.paginationCount) : 
       settings.currentResults.length;
-  var itemHtml = "";
+  // Show the results header if there's no results currently, otherwise don't readd it.
+  var itemHtml = settings.state.shownResults === 0 ? settings.resultsHeader : '';
   var template = _.template(settings.resultTemplate);
   for (var i = settings.state.shownResults; i < settings.state.shownResults + showNowCount; i++) {
     var item = jQuery.extend(settings.currentResults[i], {
