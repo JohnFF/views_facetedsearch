@@ -1,6 +1,6 @@
 core = "7.x"
 name = "Views Faceted Search"
-description = "Adds a client-side fast Faceted Search layer to a given View. You will need to configure options and HTML on the view settings page for this to work. We recommend rewriting empty fields."
+description = "Adds a client-side fast Faceted Search layer to a given View. You will need to configure options and HTML on the view settings page for this to work. We recommend rewriting empty fields. Based on https://github.com/eikes/facetedsearch."
 package = "Views"
 dependencies[] = views_ui
 files[] = 'js/underscore-1.1.7.js'
