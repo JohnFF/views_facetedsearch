@@ -250,7 +250,7 @@ function createFacetUI() {
   var ordertemplate = _.template(settings.orderByTemplate);
   var itemHtml = jQuery(ordertemplate({'options': settings.orderByOptions}));
   jQuery(bottom).append(itemHtml);
-  jQuery(settings.facetSelector).append(bottom);
+  jQuery(settings.facetSelector).after(bottom);
   jQuery('.orderbyitem').each(function(){
     var id = this.id.substr(8);
     if (settings.state.orderBy == id) {
